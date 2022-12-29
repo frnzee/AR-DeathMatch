@@ -6,33 +6,60 @@ using UnityEngine;
 public class UnitStats : MonoBehaviour
 {
     private const float DefaultHealth = 50f;
-    private const float MinHealth = 0f;
+    private const float MaxHealthValue = 100f;
     private const float DefaultDamage = 10f;
+    private const float MaxDamageValue = 33f;
+    private const float DefaultShootingSpeed = 3f;
+    private const float MaxShootingSpeedValue = 10f;
     private const float MinDamage = 1f;
-    private const float MinRotationSpeed = -0.1f;
-    private const float MaxRotationSpeed = 0.1f;
 
-    public float Health = 50f;
+    public float Health
+    {
+        get; private set;
+    }
     public float MaxHealth
     {
+        get
+        {
+            return MaxHealthValue;
+        }
+        private set
+        {
+
+        }
+    }
+    public float Damage
+    {
         get; private set;
     }
-
-    public float Damage;
     public float MaxDamage
     {
+        get
+        {
+            return MaxDamageValue;
+        }
+        private set
+        {
+
+        }
+    }
+    public float ShootingSpeed
+    {
         get; private set;
     }
-
-    private void Awake()
+    public float MaxShootingSpeed
     {
+        get
+        {
+            return MaxShootingSpeedValue;
+        }
     }
 
     private void Start()
     {
-        MaxHealth = 100f;
-        MaxDamage = 33f;
         Health = DefaultHealth;
+        Damage = DefaultDamage;
+        ShootingSpeed = DefaultShootingSpeed;
     }
 
     private void Update()

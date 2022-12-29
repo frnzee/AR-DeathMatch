@@ -4,24 +4,20 @@ using TMPro;
 
 public class HealthBar : MonoBehaviour
 {
+    private const float DefaultLerpSpeed = 3f;
+
     [SerializeField] private TextMeshProUGUI _healthText;
     [SerializeField] private Image _healthFiller;
-
-    private UnitStats _unitStats;
+    [SerializeField] private UnitStats _unitStats;
 
     private float _lerpSpeed;
 
-    void Start()
-    {
-        _unitStats = GetComponent<UnitStats>();
-    }
-
     void Update()
     {
-        _lerpSpeed = 3f * Time.deltaTime;
+        _lerpSpeed = DefaultLerpSpeed * Time.deltaTime;
 
         HealthBarFill();
-        ColorChanger();
+        ChangeColor();
 
         _healthText.text = _unitStats.Health.ToString();
 
@@ -40,7 +36,7 @@ public class HealthBar : MonoBehaviour
         _healthFiller.fillAmount = Mathf.Lerp(_healthFiller.fillAmount, (_unitStats.Health / _unitStats.MaxHealth), _lerpSpeed);
     }
 
-    private void ColorChanger()
+    private void ChangeColor()
     {
         Color healthColor = Color.Lerp(Color.red, Color.green, (_unitStats.Health / _unitStats.MaxHealth));
         _healthFiller.color = healthColor;
