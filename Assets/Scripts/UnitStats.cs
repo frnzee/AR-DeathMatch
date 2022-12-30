@@ -11,11 +11,24 @@ public class UnitStats : MonoBehaviour
     private const float MaxDamageValue = 33f;
     private const float DefaultShootingSpeed = 3f;
     private const float MaxShootingSpeedValue = 10f;
-    private const float MinDamage = 1f;
 
     public float Health
     {
-        get; private set;
+        get
+        {
+            if (_health > MaxHealth)
+            {
+                return MaxHealth;
+            }
+            else
+            {
+                return _health;
+            }
+        }
+        private set
+        {
+            _health = value;
+        }
     }
     public float MaxHealth
     {
@@ -30,7 +43,21 @@ public class UnitStats : MonoBehaviour
     }
     public float Damage
     {
-        get; private set;
+        get
+        {
+            if (_damage >= MaxDamage)
+            {
+                return MaxDamage;
+            }
+            else
+            {
+                return _damage;
+            }
+        }
+        private set
+        {
+            _damage = value;
+        }
     }
     public float MaxDamage
     {
@@ -45,7 +72,21 @@ public class UnitStats : MonoBehaviour
     }
     public float ShootingSpeed
     {
-        get; private set;
+        get
+        {
+            if (_shootingSpeed >= MaxShootingSpeed)
+            {
+                return MaxDamage;
+            }
+            else
+            {
+                return _shootingSpeed;
+            }
+        }
+        private set
+        {
+            _shootingSpeed = value;
+        }
     }
     public float MaxShootingSpeed
     {
@@ -55,11 +96,15 @@ public class UnitStats : MonoBehaviour
         }
     }
 
+    private float _health;
+    private float _damage;
+    private float _shootingSpeed;
+
     private void Start()
     {
-        Health = DefaultHealth;
-        Damage = DefaultDamage;
-        ShootingSpeed = DefaultShootingSpeed;
+        _health = DefaultHealth;
+        _damage = DefaultDamage;
+        _shootingSpeed = DefaultShootingSpeed;
     }
 
     private void Update()
@@ -77,10 +122,11 @@ public class UnitStats : MonoBehaviour
         {
             Damage = MaxDamage;
         }
-        else if (Damage < MinDamage)
-        {
-            Damage = MinDamage;
-        }
+    }
+
+    public void IncreaseDamage(int IncreaseDamageAmount)
+    {
+        Damage += IncreaseDamageAmount;
     }
 
     public void TakeDamage(float DamageAmount)

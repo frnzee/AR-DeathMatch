@@ -54,5 +54,8 @@ public class GameManager : MonoBehaviour
             AddNumbersOnUI();
         }
     }
-
+    public void RemoveWarrior(Warrior warrior)
+    {
+        _warriors.Remove(warrior);
+    }
 }

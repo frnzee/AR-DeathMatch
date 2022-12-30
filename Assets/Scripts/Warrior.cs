@@ -19,6 +19,7 @@ public class Warrior : MonoBehaviour
 
     private bool _isShooting = false;
     private bool _isSpawned = false;
+    private bool _isDead = false;
 
     private float _timerForIdleEventAnim = TimeForIdleEventAnim;
 
@@ -90,6 +91,7 @@ public class Warrior : MonoBehaviour
                 _timerForIdleEventAnim = TimeForIdleEventAnim;
             }
         }
+        Die();
     }
 
     private Warrior FindClosestEnemy()
@@ -124,12 +126,12 @@ public class Warrior : MonoBehaviour
 
         _targetRotation = (float)Mathf.Round(rotation.y);
 
-        if (_startRotation < _targetRotation)
+        if (!_isDead && _startRotation < _targetRotation)
         {
             _ar_Robot.SetTrigger("TurnRight");
             _startRotation = (float)Mathf.Round(transform.rotation.y);
         }
-        else
+        else if (!_isDead)
         {
             _ar_Robot.SetTrigger("TurnLeft");
             _startRotation = (float)Mathf.Round(transform.rotation.y);
@@ -146,7 +148,7 @@ public class Warrior : MonoBehaviour
     {
         _shootingTime -= Time.deltaTime;
 
-        if (_isShooting && _shootingTime <= 0)
+        if (!_isDead && _isShooting && _shootingTime <= 0)
         {
             _ar_Robot.SetTrigger("Shoot");
             Shot shot = Instantiate(_shotPrefab, transform.position, transform.rotation);
@@ -158,5 +160,17 @@ public class Warrior : MonoBehaviour
     public void Initialize(GameManager gameManager)
     {
         _gameManager = gameManager;
+    }
+
+    private void Die()
+    {
+
+        if (_unitStats.Health <= 0)
+        {
+            _isDead = true;
+            _ar_Robot.SetTrigger("Die");
+            _gameManager.RemoveWarrior(this);
+            Destroy(gameObject, TimeForDeath);
+        }
     }
 }
