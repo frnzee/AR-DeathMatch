@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public IEnumerable<Warrior> Warriors => _warriors;
 
     private int _currentWarriorsAmount;
+    private Vector3 _position;
 
     public bool IsSetupState
     {
@@ -31,14 +32,12 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-            Vector3 position = new Vector3(Random.Range(0, 20), 0, Random.Range(0, 20));
-            InstantiateWarrior(position, Quaternion.identity);
+            OnClick();
         }
     }
 
     private void AddNumbersOnUI()
     {
-        _currentWarriorsAmount++;
         _warriorsAmountText.text = _currentWarriorsAmount + "/" + WarriorsAmountLimit;
     }
 
@@ -46,16 +45,25 @@ public class GameManager : MonoBehaviour
     {
         if (_currentWarriorsAmount < WarriorsAmountLimit)
         {
-            var warrior = Instantiate(_warriorPrefab, position, rotation);
+            Warrior warrior = Instantiate(_warriorPrefab, position, rotation);
             _warriors.Add(warrior);
 
             warrior.Initialize(this);
 
+            _currentWarriorsAmount = _warriors.Count;
             AddNumbersOnUI();
         }
     }
+
     public void RemoveWarrior(Warrior warrior)
     {
         _warriors.Remove(warrior);
+        _currentWarriorsAmount = _warriors.Count;
+        _warriorsAmountText.text = _currentWarriorsAmount + "/" + WarriorsAmountLimit;
+    }
+    public void OnClick()
+    {
+        _position = new Vector3(Random.Range(0, 20), 0, Random.Range(0, 20));
+        InstantiateWarrior(_position, Quaternion.identity);
     }
 }

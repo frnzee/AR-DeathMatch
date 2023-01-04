@@ -20,15 +20,6 @@ public class HealthBar : MonoBehaviour
         ChangeColor();
 
         _healthText.text = _unitStats.Health.ToString();
-
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            _unitStats.TakeDamage(5);
-        }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            _unitStats.HealUp(5);
-        }
     }
 
     private void HealthBarFill()
@@ -38,7 +29,6 @@ public class HealthBar : MonoBehaviour
 
     private void ChangeColor()
     {
-        Color healthColor = Color.Lerp(Color.red, Color.green, (_unitStats.Health / _unitStats.MaxHealth));
-        _healthFiller.color = healthColor;
+        _healthFiller.color = Color.Lerp(Color.red, Color.green, (_unitStats.Health / _unitStats.MaxHealth));
     }
 }

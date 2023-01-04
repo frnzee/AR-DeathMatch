@@ -15,15 +15,19 @@ public class Warrior : MonoBehaviour
     private GameManager _gameManager;
     private float _targetRotation;
     private float _startRotation;
-    private float _shootingTime;
+    private float _shootingTimer;
 
     private bool _isShooting = false;
     private bool _isSpawned = false;
-    private bool _isDead = false;
+
+    public bool IsDead
+    {
+        get; private set;
+    }
 
     private float _timerForIdleEventAnim = TimeForIdleEventAnim;
 
-    private Animator _ar_Robot;
+    private Animator _warriorAnimator;
 
     public UnitStats _unitStats
     {
@@ -35,37 +39,34 @@ public class Warrior : MonoBehaviour
         get; private set;
     }
 
-    private void Awake()
-    {
-        _unitStats = GetComponentInChildren<UnitStats>();
-    }
-
     private void Start()
     {
-        _ar_Robot = GetComponent<Animator>();
+        _unitStats = GetComponentInChildren<UnitStats>();
+        _warriorAnimator = GetComponent<Animator>();
         _isSpawned = true;
+        IsDead = false;
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            _ar_Robot.SetTrigger("Jump");
+            _warriorAnimator.SetTrigger("Jump");
         }
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            _ar_Robot.SetTrigger("Shoot");
+            _warriorAnimator.SetTrigger("Shoot");
         }
 
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            _ar_Robot.SetTrigger("Die");
+            _warriorAnimator.SetTrigger("Die");
         }
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            _ar_Robot.SetTrigger("Idle");
+            _warriorAnimator.SetTrigger("Idle");
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -87,7 +88,7 @@ public class Warrior : MonoBehaviour
 
             if (_timerForIdleEventAnim <= 0)
             {
-                _ar_Robot.SetTrigger("Idle");
+                _warriorAnimator.SetTrigger("Idle");
                 _timerForIdleEventAnim = TimeForIdleEventAnim;
             }
         }
@@ -126,14 +127,14 @@ public class Warrior : MonoBehaviour
 
         _targetRotation = (float)Mathf.Round(rotation.y);
 
-        if (!_isDead && _startRotation < _targetRotation)
+        if (!IsDead && _startRotation < _targetRotation)
         {
-            _ar_Robot.SetTrigger("TurnRight");
+            _warriorAnimator.SetTrigger("TurnRight");
             _startRotation = (float)Mathf.Round(transform.rotation.y);
         }
-        else if (!_isDead)
+        else if (!IsDead)
         {
-            _ar_Robot.SetTrigger("TurnLeft");
+            _warriorAnimator.SetTrigger("TurnLeft");
             _startRotation = (float)Mathf.Round(transform.rotation.y);
         }
 
@@ -146,14 +147,14 @@ public class Warrior : MonoBehaviour
 
     private void Shooting()
     {
-        _shootingTime -= Time.deltaTime;
+        _shootingTimer -= Time.deltaTime;
 
-        if (!_isDead && _isShooting && _shootingTime <= 0)
+        if (!IsDead && _isShooting && _shootingTimer <= 0)
         {
-            _ar_Robot.SetTrigger("Shoot");
+            _warriorAnimator.SetTrigger("Shoot");
             Shot shot = Instantiate(_shotPrefab, transform.position, transform.rotation);
-            shot.InitializeEnemy(_currentEnemy);
-            _shootingTime = _unitStats.ShootingSpeed;
+            shot.Initialize(this, _currentEnemy);
+            _shootingTimer = _unitStats.ShootingSpeed;
         }
     }
 
@@ -164,13 +165,16 @@ public class Warrior : MonoBehaviour
 
     private void Die()
     {
-
         if (_unitStats.Health <= 0)
         {
-            _isDead = true;
-            _ar_Robot.SetTrigger("Die");
+            IsDead = true;
+            _warriorAnimator.SetTrigger("Die");
             _gameManager.RemoveWarrior(this);
             Destroy(gameObject, TimeForDeath);
+        }
+        else
+        {
+            IsDead = false;
         }
     }
 }

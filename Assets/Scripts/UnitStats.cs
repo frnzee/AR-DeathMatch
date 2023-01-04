@@ -1,7 +1,4 @@
-using System;
 using UnityEngine;
-
-[Serializable]
 
 public class UnitStats : MonoBehaviour
 {
@@ -10,7 +7,10 @@ public class UnitStats : MonoBehaviour
     private const float DefaultDamage = 10f;
     private const float MaxDamageValue = 33f;
     private const float DefaultShootingSpeed = 3f;
-    private const float MaxShootingSpeedValue = 10f;
+    private const float MaxShootingSpeedValue = 0.5f;
+    private const float ShootingSpeedIncrement = 0.2f;
+    private const float DamageIncrementValue = 5f;
+    private const float HealthUpAmountValue = 50f;
 
     public float Health
     {
@@ -35,6 +35,17 @@ public class UnitStats : MonoBehaviour
         get
         {
             return MaxHealthValue;
+        }
+        private set
+        {
+
+        }
+    }
+    public float HealthUpAmount
+    {
+        get
+        {
+            return HealthUpAmountValue;
         }
         private set
         {
@@ -70,13 +81,17 @@ public class UnitStats : MonoBehaviour
 
         }
     }
+    public float DamageIncreament
+    {
+        get; private set;
+    }
     public float ShootingSpeed
     {
         get
         {
-            if (_shootingSpeed >= MaxShootingSpeed)
+            if (_shootingSpeed <= MaxShootingSpeed)
             {
-                return MaxDamage;
+                return MaxShootingSpeedValue;
             }
             else
             {
@@ -104,29 +119,18 @@ public class UnitStats : MonoBehaviour
     {
         _health = DefaultHealth;
         _damage = DefaultDamage;
+        DamageIncreament = DamageIncrementValue;
         _shootingSpeed = DefaultShootingSpeed;
     }
 
-    private void Update()
+    public void IncreaseDamage()
     {
-        if (Health > MaxHealth)
-        {
-            Health = MaxHealth;
-        }
-        else if (Health < 0)
-        {
-            Health = 0;
-        }
-
-        if (Damage > MaxDamage)
-        {
-            Damage = MaxDamage;
-        }
+        Damage += DamageIncreament;
     }
 
-    public void IncreaseDamage(int IncreaseDamageAmount)
+    public void IncreaseShootingSpeed()
     {
-        Damage += IncreaseDamageAmount;
+        ShootingSpeed -= ShootingSpeedIncrement;
     }
 
     public void TakeDamage(float DamageAmount)
@@ -134,8 +138,8 @@ public class UnitStats : MonoBehaviour
         Health -= DamageAmount;
     }
 
-    public void HealUp(float HealUpAmount)
+    public void HealUp()
     {
-        Health += HealUpAmount;
+        Health += HealthUpAmount;
     }
 }
