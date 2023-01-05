@@ -9,10 +9,17 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _healthText;
     [SerializeField] private Image _healthFiller;
     [SerializeField] private UnitStats _unitStats;
+    
+    private Camera _mainCamera;
 
     private float _lerpSpeed;
 
-    void Update()
+    private void Start()
+    {
+        _mainCamera = Camera.main;
+    }
+
+    private void Update()
     {
         _lerpSpeed = DefaultLerpSpeed * Time.deltaTime;
 
@@ -22,6 +29,13 @@ public class HealthBar : MonoBehaviour
         _healthText.text = _unitStats.Health.ToString();
     }
 
+    private void LateUpdate()
+    {
+        if (_mainCamera != null)
+        {
+            transform.forward = Camera.main.transform.forward;
+        }
+    }
     private void HealthBarFill()
     {
         _healthFiller.fillAmount = Mathf.Lerp(_healthFiller.fillAmount, (_unitStats.Health / _unitStats.MaxHealth), _lerpSpeed);

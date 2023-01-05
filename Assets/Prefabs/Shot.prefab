@@ -286,7 +286,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3
+      scalar: 2
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -4821,6 +4821,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
+  _shotExplosionPrefab: {fileID: 2661702088324539146, guid: 01d96412737284556932b58cc6b1b8a5, type: 3}
 --- !u!136 &4269783177228818145
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4834,4 +4835,4 @@ CapsuleCollider:
   m_Radius: 1
   m_Height: 1
   m_Direction: 1
-  m_Center: {x: 0.5820761, y: 1.1886878, z: 0}
+  m_Center: {x: 0.5, y: 1, z: 0}

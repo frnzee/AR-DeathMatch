@@ -3,6 +3,7 @@ using UnityEngine;
 public class Shot : MonoBehaviour
 {
     [SerializeField] private float _speed;
+    [SerializeField] private GameObject _shotExplosionPrefab;
 
     private Warrior _shooter;
     private Warrior _currentEnemy;
@@ -26,17 +27,17 @@ public class Shot : MonoBehaviour
         
         if (other.gameObject.GetComponent<Warrior>() == _currentEnemy)
         {
-            if (_currentEnemy.IsDead)
+            _currentEnemy.UnitStats.TakeDamage(_shooter.UnitStats.Damage);
+
+            if (_currentEnemy.IsDead && !_shooter.IsDead)
             {
-                _shooter._unitStats.HealUp();
-                _shooter._unitStats.IncreaseDamage();
-                _shooter._unitStats.IncreaseShootingSpeed();
-            }
-            else
-            {
-                _currentEnemy._unitStats.TakeDamage(_shooter._unitStats.Damage);
+                _shooter.UnitStats.HealUp();
+                _shooter.UnitStats.IncreaseDamage();
+                _shooter.UnitStats.IncreaseShootingSpeed();
+                _shooter.JumpOnHealUp();
             }
 
+            Instantiate(_shotExplosionPrefab, transform.position, transform.rotation);
             Destroy(gameObject);
         }
     }

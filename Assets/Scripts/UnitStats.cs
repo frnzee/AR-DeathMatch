@@ -2,15 +2,17 @@ using UnityEngine;
 
 public class UnitStats : MonoBehaviour
 {
-    private const float DefaultHealth = 50f;
-    private const float MaxHealthValue = 100f;
-    private const float DefaultDamage = 10f;
-    private const float MaxDamageValue = 33f;
+    private const int DefaultHealth = 50;
+    private const int RandomChanger = 10;
+    private const int MaxHealthValue = 100;
+    private const int MinHealthValue = 0;
+    private const int DefaultDamage = 15;
+    private const int MaxDamageValue = 33;
     private const float DefaultShootingSpeed = 3f;
     private const float MaxShootingSpeedValue = 0.5f;
     private const float ShootingSpeedIncrement = 0.2f;
-    private const float DamageIncrementValue = 5f;
-    private const float HealthUpAmountValue = 50f;
+    private const int DamageIncrementValue = 5;
+    private const int HealthUpAmountValue = 50;
 
     public float Health
     {
@@ -19,6 +21,10 @@ public class UnitStats : MonoBehaviour
             if (_health > MaxHealth)
             {
                 return MaxHealth;
+            }
+            else if (_health < MinHealthValue)
+            {
+                return MinHealthValue;
             }
             else
             {
@@ -117,8 +123,8 @@ public class UnitStats : MonoBehaviour
 
     private void Start()
     {
-        _health = DefaultHealth;
-        _damage = DefaultDamage;
+        _health = Random.Range(DefaultHealth - RandomChanger, DefaultHealth + RandomChanger);
+        _damage = Random.Range(DefaultDamage - RandomChanger, DefaultDamage + RandomChanger);
         DamageIncreament = DamageIncrementValue;
         _shootingSpeed = DefaultShootingSpeed;
     }
