@@ -10,8 +10,8 @@ public class Warrior : MonoBehaviour
     [SerializeField] private Warrior _currentEnemy;
     [SerializeField] private GameObject _healthBar;
     [SerializeField] private GameObject _explosionPrefab;
-    [SerializeField] private Shot _shotPrefab;
-    [SerializeField] private float _speed;
+    [SerializeField] private Bullet _shotPrefab;
+    [SerializeField] private float _rotationSpeed;
 
     private GameManager _gameManager;
     private float _targetRotation;
@@ -35,6 +35,8 @@ public class Warrior : MonoBehaviour
     {
         get; private set;
     }
+
+    public void Initialize(GameManager gameManager) => _gameManager = gameManager;
 
     private void Start()
     {
@@ -95,7 +97,7 @@ public class Warrior : MonoBehaviour
     {
         Vector3 direction = _currentEnemy.transform.position - transform.position;
         Quaternion rotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, _speed * Time.deltaTime);
+        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, _rotationSpeed * Time.deltaTime);
 
         _targetRotation = Mathf.Round(rotation.y);
 
@@ -104,7 +106,7 @@ public class Warrior : MonoBehaviour
             _warriorAnimator.SetBool("TurnRight", true);
             _startRotation = Mathf.Round(transform.rotation.y);
         }
-        else if (!IsDead && _startRotation > _targetRotation)
+        else if (!IsDead)
         {
             _warriorAnimator.SetBool("TurnLeft", true);
             _startRotation = Mathf.Round(transform.rotation.y);
@@ -116,7 +118,7 @@ public class Warrior : MonoBehaviour
         }
 
         _isShooting = (Mathf.Abs(_startRotation) - Mathf.Abs(_targetRotation)) > MinRotationValue &&
-            (Mathf.Abs(_startRotation) - Mathf.Abs(_targetRotation)) < MaxRotationValue;
+                      (Mathf.Abs(_startRotation) - Mathf.Abs(_targetRotation)) < MaxRotationValue;
     }
 
     private void Shooting()
@@ -126,13 +128,11 @@ public class Warrior : MonoBehaviour
         if (!IsDead && _isShooting && _shootingTimer <= 0)
         {
             _warriorAnimator.SetTrigger("Shoot");
-            Shot shot = Instantiate(_shotPrefab, transform.position, transform.rotation);
-            shot.Initialize(this, _currentEnemy);
+            Bullet shot = Instantiate(_shotPrefab, transform.position, transform.rotation);
+            shot.Initialize(this);
             _shootingTimer = UnitStats.ShootingSpeed;
         }
     }
-
-    public void LinkWithGameManager(GameManager gameManager) => _gameManager = gameManager;
 
     public void JumpOnHealUp() => _warriorAnimator.SetTrigger("Jump");
 
@@ -142,10 +142,10 @@ public class Warrior : MonoBehaviour
         {
             IsDead = true;
             _warriorAnimator.SetTrigger("Die");
+            _gameManager.RemoveWarrior(this);
 
             ExplodeAfterDeath();
 
-            _gameManager.RemoveWarrior(this);
             Destroy(gameObject, TimeForDeath);
         }
         else

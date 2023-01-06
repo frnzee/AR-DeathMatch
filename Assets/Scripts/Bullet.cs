@@ -1,14 +1,15 @@
 using UnityEngine;
 
-public class Shot : MonoBehaviour
+public class Bullet : MonoBehaviour
 {
     [SerializeField] private float _speed;
     [SerializeField] private GameObject _shotExplosionPrefab;
 
     private Warrior _shooter;
-    private Warrior _currentEnemy;
 
-    private float _lifeTime = 10f;
+    private float _lifeTime = 15f;
+
+    public void Initialize(Warrior shooter) => _shooter = shooter;
 
     private void Update()
     {
@@ -24,12 +25,12 @@ public class Shot : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
-        if (other.gameObject.GetComponent<Warrior>() == _currentEnemy)
+        var currentEnemy = other.gameObject.GetComponent<Warrior>();
+        if (currentEnemy && currentEnemy != _shooter)
         {
-            _currentEnemy.UnitStats.TakeDamage(_shooter.UnitStats.Damage);
+            currentEnemy.UnitStats.TakeDamage((int)_shooter.UnitStats.Damage);
 
-            if (_currentEnemy.IsDead && !_shooter.IsDead)
+            if (currentEnemy.IsDead && !_shooter.IsDead)
             {
                 _shooter.UnitStats.HealUp();
                 _shooter.UnitStats.IncreaseDamage();
@@ -40,11 +41,5 @@ public class Shot : MonoBehaviour
             Instantiate(_shotExplosionPrefab, transform.position, transform.rotation);
             Destroy(gameObject);
         }
-    }
-
-    public void Initialize(Warrior shooter, Warrior currentEnemy)
-    {
-        _shooter = shooter;
-        _currentEnemy = currentEnemy;
     }
 }

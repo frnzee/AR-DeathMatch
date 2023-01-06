@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 149504267}
   - component: {fileID: 149504271}
   m_Layer: 5
-  m_Name: GameManager_Canvas
+  m_Name: GameManagerCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -216,10 +216,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1624589779}
-  - {fileID: 927287765}
-  - {fileID: 2010859079}
-  - {fileID: 325059175}
-  - {fileID: 2143862862}
+  - {fileID: 413103905}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -241,10 +238,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _warriorPrefab: {fileID: 29376854925794621, guid: a3492b35cd78047f0a471a144b78bdf5, type: 3}
-  _game_UI: {fileID: 149504266}
+  _gameUI: {fileID: 413103904}
   _setupModeText: {fileID: 761603393}
   _destroyModeText: {fileID: 1838657575}
-  _warriors: []
   _warriorsAmountText: {fileID: 927287766}
 --- !u!1 &237810878
 GameObject:
@@ -452,7 +448,7 @@ GameObject:
   - component: {fileID: 325059177}
   - component: {fileID: 325059176}
   m_Layer: 5
-  m_Name: Destroy Mode Button
+  m_Name: DestroyModeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -470,8 +466,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1838657576}
-  m_Father: {fileID: 149504270}
-  m_RootOrder: 3
+  m_Father: {fileID: 413103905}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -572,6 +568,45 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 325059174}
   m_CullTransparentMesh: 1
+--- !u!1 &413103904
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 413103905}
+  m_Layer: 5
+  m_Name: GUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &413103905
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413103904}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 927287765}
+  - {fileID: 2010859079}
+  - {fileID: 325059175}
+  - {fileID: 2143862862}
+  m_Father: {fileID: 149504270}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,7 +712,7 @@ GameObject:
   - component: {fileID: 761603396}
   - component: {fileID: 761603395}
   m_Layer: 5
-  m_Name: Setup Mode Text
+  m_Name: SetupModeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -875,8 +910,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 149504270}
-  m_RootOrder: 1
+  m_Father: {fileID: 413103905}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -1090,7 +1125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3755aeedc2f042d39ec19ddec51c041, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _arTapToInstantiate: {fileID: 861713050}
+  _tapToInstantiateInAR: {fileID: 0}
 --- !u!65 &1146881072
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1116,7 +1151,7 @@ GameObject:
   - component: {fileID: 1284404486}
   - component: {fileID: 1284404485}
   m_Layer: 5
-  m_Name: Set Character Text
+  m_Name: SetCharacterText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1523,7 +1558,7 @@ GameObject:
   - component: {fileID: 1838657578}
   - component: {fileID: 1838657577}
   m_Layer: 5
-  m_Name: Destroy Unit Text
+  m_Name: DestroyUnitText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1707,8 +1742,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1284404484}
-  m_Father: {fileID: 149504270}
-  m_RootOrder: 2
+  m_Father: {fileID: 413103905}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -2031,8 +2066,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 761603394}
-  m_Father: {fileID: 149504270}
-  m_RootOrder: 4
+  m_Father: {fileID: 413103905}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}

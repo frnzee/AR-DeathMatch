@@ -3,10 +3,10 @@ using UnityEngine.EventSystems;
 
 public class CheckerRaycast : MonoBehaviour, IPointerDownHandler
 {
-    [SerializeField] private AR_TapToInstantiate _arTapToInstantiate;
+    [SerializeField] private TapToInstantiateInAR _tapToInstantiateInAR;
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        _arTapToInstantiate.SpawnWarriorOnPlacementIndicatorPosition();
+        _tapToInstantiateInAR.SpawnWarriorOnPlacementIndicatorPosition();
     }
 }

@@ -5,23 +5,23 @@ using TMPro;
 
 public partial class GameManager : MonoBehaviour
 {
-    private const int WarriorsAmountLimit = 5;
+    private const int WarriorsCountLimit = 5;
 
     [SerializeField] private Warrior _warriorPrefab;
-    [SerializeField] private GameObject _game_UI;
+    [SerializeField] private GameObject _gameUI;
     [SerializeField] private GameObject _setupModeText;
     [SerializeField] private GameObject _destroyModeText;
-    [SerializeField] private List<Warrior> _warriors;
     [SerializeField] private TextMeshProUGUI _warriorsAmountText;
+
+    private readonly List<Warrior> _warriors = new List<Warrior>();
+    private int CurrentWarriorsCount => _warriors.Count;
+    private Vector3 _position;
 
     public IEnumerable<Warrior> Warriors => _warriors;
     public GameState CurrentGameState
     {
         get; private set;
     }
-
-    private int _currentWarriorsAmount;
-    private Vector3 _position;
 
     private void Start()
     {
@@ -32,16 +32,14 @@ public partial class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-            OnClick();
+            InstantiateWarriorOnSimulate();
         }
 
         if (CurrentGameState == GameState.Game)
         {
             DisableGUI();
         }
-        else if (CurrentGameState == GameState.None ||
-                 CurrentGameState == GameState.Setup ||
-                 CurrentGameState == GameState.Destroy)
+        else
         {
             EnableGUI();
         }
@@ -49,55 +47,50 @@ public partial class GameManager : MonoBehaviour
 
     private void EnableGUI()
     {
-        _game_UI.SetActive(true);
+        _gameUI.SetActive(true);
     }
 
     private void DisableGUI()
     {
-        _game_UI.SetActive(false);
+        _gameUI.SetActive(false);
     }
 
     public void InstantiateWarrior(Vector3 position, Quaternion rotation)
     {
-        if (_currentWarriorsAmount < WarriorsAmountLimit)
+        if (CurrentWarriorsCount < WarriorsCountLimit)
         {
             Warrior warrior = Instantiate(_warriorPrefab, position, rotation);
             _warriors.Add(warrior);
 
-            warrior.LinkWithGameManager(this);
+            warrior.Initialize(this);
 
-            UpdateWarriorsAmount();
+            UpdateWarriorsAmountUI();
         }
     }
 
     public void RemoveWarrior(Warrior warrior)
     {
         _warriors.Remove(warrior);
-        UpdateWarriorsAmount();
+        UpdateWarriorsAmountUI();
 
-        if (_currentWarriorsAmount == 1)
+        if (CurrentWarriorsCount <= 0)
         {
             CurrentGameState = GameState.Setup;
         }
-        else if (_currentWarriorsAmount <= 0)
-        {
-            CurrentGameState = GameState.None;
-        }
     }
 
-    private void UpdateWarriorsAmount()
+    private void UpdateWarriorsAmountUI()
     {
-        _currentWarriorsAmount = _warriors.Count;
-        _warriorsAmountText.text = _currentWarriorsAmount + "/" + WarriorsAmountLimit;
-        if (_currentWarriorsAmount == WarriorsAmountLimit)
+        _warriorsAmountText.text = CurrentWarriorsCount + "/" + WarriorsCountLimit;
+        if (CurrentWarriorsCount > 1)
         {
             CurrentGameState = GameState.Game;
         }
     }
 
-    public void OnClick()
+    public void InstantiateWarriorOnSimulate()
     {
-        _position = new Vector3(Random.Range(-10, 10), 0, Random.Range(5, 20));
+        _position = new Vector3(Random.Range(-10, 10), 0, Random.Range(10, 20));
         InstantiateWarrior(_position, Quaternion.identity);
     }
 

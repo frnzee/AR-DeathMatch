@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.XR.ARSubsystems;
 using UnityEngine.XR.ARFoundation;
 
-public class AR_TapToInstantiate : MonoBehaviour
+public class TapToInstantiateInAR : MonoBehaviour
 
 {
     private const float PositionValue = 0.5f;
@@ -13,16 +13,19 @@ public class AR_TapToInstantiate : MonoBehaviour
     [SerializeField] private GameObject _spawnPosition;
     [SerializeField] private ARRaycastManager _arRaycastManager;
 
+
+
     private Pose _placementPosition;
     private bool _placementPositionIsValid = false;
 
     private void Update()
     {
-        if (_gameManager.CurrentGameState == GameManager.GameState.Setup)
+        if (_gameManager.CurrentGameState == GameManager.GameState.Setup ||
+            _gameManager.CurrentGameState == GameManager.GameState.Destroy)
         {
             _spawnPosition.SetActive(true);
 
-            UpdatePlacementPose();
+            UpdatePlacementPosition();
             UpdatePlacementIndicator();
         }
         else
@@ -31,7 +34,7 @@ public class AR_TapToInstantiate : MonoBehaviour
         }
     }
 
-    private void UpdatePlacementPose()
+    private void UpdatePlacementPosition()
     {
         var screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(PositionValue, PositionValue));
         var hits = new List<ARRaycastHit>();
