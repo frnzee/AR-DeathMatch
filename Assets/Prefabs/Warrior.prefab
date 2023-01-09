@@ -301,8 +301,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9ec91335a5ed45afa93d5f0ed2c53f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthUpMessage: {fileID: 8155641855137765893}
-  _healthUpText: {fileID: 8973892713075749170}
 --- !u!1 &29376856763357195
 GameObject:
   m_ObjectHideFlags: 0
@@ -946,6 +944,7 @@ MonoBehaviour:
   _currentEnemy: {fileID: 0}
   _healthBar: {fileID: 29376854758454062}
   _explosionPrefab: {fileID: 2661702088324539146, guid: 455e552c35bf946a19a6b0090922613e, type: 3}
+  _healUpText: {fileID: 8155641855137765893}
   _shotPrefab: {fileID: 939761434949370586, guid: 5489be6657c354ea49c33c2e2ac09807, type: 3}
   _rotationSpeed: 1.5
 --- !u!1 &7644277523114698784
@@ -3156,7 +3155,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: +50HP
+  m_text: +25 HP
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a8a0f71578b184a2bb407c6a3a6b0de4, type: 2}
   m_sharedMaterial: {fileID: -2230013465546784929, guid: a8a0f71578b184a2bb407c6a3a6b0de4, type: 2}

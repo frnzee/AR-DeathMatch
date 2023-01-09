@@ -2,8 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARSubsystems;
 using UnityEngine.XR.ARFoundation;
+using UnityEngine.EventSystems;
 
-public class TapToInstantiateInAR : MonoBehaviour
+
+public class TapToInstantiateInAR : MonoBehaviour, IPointerDownHandler
 
 {
     private const float PositionValue = 0.5f;
@@ -14,14 +16,17 @@ public class TapToInstantiateInAR : MonoBehaviour
     [SerializeField] private ARRaycastManager _arRaycastManager;
 
 
-
     private Pose _placementPosition;
     private bool _placementPositionIsValid = false;
 
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        SpawnWarriorOnPlacementIndicatorPosition();
+    }
+
     private void Update()
     {
-        if (_gameManager.CurrentGameState == GameManager.GameState.Setup ||
-            _gameManager.CurrentGameState == GameManager.GameState.Destroy)
+        if (_gameManager.CurrentGameState == GameManager.GameState.Setup)
         {
             _spawnPosition.SetActive(true);
 
@@ -69,6 +74,10 @@ public class TapToInstantiateInAR : MonoBehaviour
         if (_placementPositionIsValid && _gameManager.CurrentGameState == GameManager.GameState.Setup)
         {
             _gameManager.InstantiateWarrior(_placementPosition.position, _placementPosition.rotation);
+        }
+        else if (!_placementPositionIsValid)
+        {
+            StartCoroutine(_gameManager.ShowMessage("Can't place unit here", 3f));
         }
     }
 }

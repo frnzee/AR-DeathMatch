@@ -2,16 +2,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Collections;
 
 public partial class GameManager : MonoBehaviour
 {
     private const int WarriorsCountLimit = 5;
+    private const float DefaultMessageLifetime = 3f;
 
     [SerializeField] private Warrior _warriorPrefab;
+    [SerializeField] private GameObject _unitAppearingPrefab;
     [SerializeField] private GameObject _gameUI;
     [SerializeField] private GameObject _setupModeText;
-    [SerializeField] private GameObject _destroyModeText;
     [SerializeField] private TextMeshProUGUI _warriorsAmountText;
+    [SerializeField] private TextMeshProUGUI _messageText;
 
     private readonly List<Warrior> _warriors = new List<Warrior>();
     private int CurrentWarriorsCount => _warriors.Count;
@@ -33,6 +36,10 @@ public partial class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I))
         {
             InstantiateWarriorOnSimulate();
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            EnableSetupState();
         }
 
         if (CurrentGameState == GameState.Game)
@@ -59,6 +66,7 @@ public partial class GameManager : MonoBehaviour
     {
         if (CurrentWarriorsCount < WarriorsCountLimit)
         {
+            _ = Instantiate(_unitAppearingPrefab, position, rotation);
             Warrior warrior = Instantiate(_warriorPrefab, position, rotation);
             _warriors.Add(warrior);
 
@@ -82,7 +90,7 @@ public partial class GameManager : MonoBehaviour
     private void UpdateWarriorsAmountUI()
     {
         _warriorsAmountText.text = CurrentWarriorsCount + "/" + WarriorsCountLimit;
-        if (CurrentWarriorsCount > 1)
+        if (CurrentWarriorsCount != 0)
         {
             CurrentGameState = GameState.Game;
         }
@@ -97,17 +105,20 @@ public partial class GameManager : MonoBehaviour
     public void EnableSetupState()
     {
         CurrentGameState = GameState.Setup;
-        _setupModeText.GetComponent<TextMeshProUGUI>().color = Color.cyan; 
-    }
-
-    public void EnableDestroyState()
-    {
-        CurrentGameState = GameState.Destroy;
+        _setupModeText.GetComponent<TextMeshProUGUI>().color = Color.cyan;
+        StartCoroutine(ShowMessage("Setup mode", DefaultMessageLifetime));
     }
 
     public void Restart()
     {
         SceneManager.LoadScene("AR_DeathMatch");
-        EnableGUI();
+    }
+
+    public IEnumerator ShowMessage(string text, float time)
+    {
+        _messageText.text = text;
+        yield return new WaitForSeconds(time);
+        _messageText.text = null;
+        _setupModeText.GetComponent<TextMeshProUGUI>().color = Color.black;
     }
 }

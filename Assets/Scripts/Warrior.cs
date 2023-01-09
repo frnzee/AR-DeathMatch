@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Warrior : MonoBehaviour
@@ -10,10 +12,12 @@ public class Warrior : MonoBehaviour
     [SerializeField] private Warrior _currentEnemy;
     [SerializeField] private GameObject _healthBar;
     [SerializeField] private GameObject _explosionPrefab;
+    [SerializeField] private GameObject _healUpText;
     [SerializeField] private Bullet _shotPrefab;
     [SerializeField] private float _rotationSpeed;
 
     private GameManager _gameManager;
+
     private float _targetRotation;
     private float _startRotation;
     private float _shootingTimer;
@@ -134,7 +138,11 @@ public class Warrior : MonoBehaviour
         }
     }
 
-    public void JumpOnHealUp() => _warriorAnimator.SetTrigger("Jump");
+    public void JumpOnHealUp()
+    {
+        _warriorAnimator.SetTrigger("Jump");
+        StartCoroutine(ShowHealthUpMessage(3f));
+    }
 
     private void Die()
     {
@@ -161,5 +169,12 @@ public class Warrior : MonoBehaviour
         {
             Instantiate(_explosionPrefab, transform.position, transform.rotation);
         }
+    }
+
+    private IEnumerator ShowHealthUpMessage(float time)
+    {
+        _healUpText.SetActive(true);
+        yield return new WaitForSeconds(time);
+        _healUpText.SetActive(false);
     }
 }

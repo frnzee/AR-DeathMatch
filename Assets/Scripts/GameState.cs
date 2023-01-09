@@ -4,7 +4,6 @@
     {
         None,
         Setup,
-        Destroy,
         Game
     }
 }
