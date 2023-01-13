@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Warrior : MonoBehaviour
@@ -10,10 +9,10 @@ public class Warrior : MonoBehaviour
     private const float TimeForIdleEventAnim = 10f;
 
     [SerializeField] private Warrior _currentEnemy;
-    [SerializeField] private GameObject _healthBar;
+    [SerializeField] private GameObject _appearingPrefab;
     [SerializeField] private GameObject _explosionPrefab;
     [SerializeField] private GameObject _healUpText;
-    [SerializeField] private Bullet _shotPrefab;
+    [SerializeField] private Bullet _bulletPrefab;
     [SerializeField] private float _rotationSpeed;
 
     private GameManager _gameManager;
@@ -26,21 +25,29 @@ public class Warrior : MonoBehaviour
     private bool _isShooting = false;
     private bool _isSpawned = false;
 
-    public bool IsDead
-    {
-        get; private set;
-    }
+    public bool IsDead { get; private set; }
 
     private float _timerForIdleEventAnim = TimeForIdleEventAnim;
 
     private Animator _warriorAnimator;
 
-    public UnitStats UnitStats
+    public UnitStats UnitStats { get; private set; }
+
+    public void Initialize(GameManager gameManager)
     {
-        get; private set;
+        _gameManager = gameManager;
+        _gameManager.GameStateChanged += OnGameStateChange;
     }
 
-    public void Initialize(GameManager gameManager) => _gameManager = gameManager;
+    private void OnGameStateChange(GameManager.GameState gameState)
+    {
+
+    }
+
+    private void Awake()
+    {
+        Instantiate(_appearingPrefab, transform.position, transform.rotation);
+    }
 
     private void Start()
     {
@@ -132,8 +139,8 @@ public class Warrior : MonoBehaviour
         if (!IsDead && _isShooting && _shootingTimer <= 0)
         {
             _warriorAnimator.SetTrigger("Shoot");
-            Bullet shot = Instantiate(_shotPrefab, transform.position, transform.rotation);
-            shot.Initialize(this);
+            Bullet bullet = Instantiate(_bulletPrefab, transform.position, transform.rotation);
+            bullet.Initialize(this);
             _shootingTimer = UnitStats.ShootingSpeed;
         }
     }
