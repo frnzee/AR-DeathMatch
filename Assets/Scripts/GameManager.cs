@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public partial class GameManager : MonoBehaviour
 {
-    private const int warriorsCountLimit = 5;
+    private const int WarriorsCountLimit = 5;
 
     [SerializeField] private Warrior _warriorPrefab;
     [SerializeField] private UIController _uIController;
@@ -16,14 +16,7 @@ public partial class GameManager : MonoBehaviour
 
     public IEnumerable<Warrior> Warriors => _warriors;
 
-    public int CurrentWarriorsCount
-    {
-        get
-        {
-            WarriorsCountChanged?.Invoke(_warriors.Count);
-            return _warriors.Count;
-        }
-    }
+    public int CurrentWarriorsCount => _warriors.Count;
 
     public GameState CurrentGameState
     {
@@ -38,7 +31,7 @@ public partial class GameManager : MonoBehaviour
         }
     }
 
-    public int WarriorsCountLimit => warriorsCountLimit;
+    public int WarriorsLimit => WarriorsCountLimit;
 
     public event Action<GameState> GameStateChanged;
     public event Action<int> WarriorsCountChanged;
@@ -56,11 +49,11 @@ public partial class GameManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            _gameState = GameState.Setup;
+            CurrentGameState = GameState.Setup;
         }
         if (Input.GetKeyDown(KeyCode.N))
         {
-            _gameState = GameState.None;
+            CurrentGameState = GameState.None;
         }
         if (CurrentWarriorsCount > 0)
         {
@@ -70,22 +63,24 @@ public partial class GameManager : MonoBehaviour
 
     public void InstantiateWarrior(Vector3 position, Quaternion rotation)
     {
-        if (CurrentWarriorsCount < WarriorsCountLimit)
+        if (CurrentWarriorsCount < WarriorsLimit)
         {
             Warrior warrior = Instantiate(_warriorPrefab, position, rotation);
             _warriors.Add(warrior);
 
             warrior.Initialize(this);
+            WarriorsCountChanged?.Invoke(_warriors.Count);
         }
     }
 
     public void RemoveWarrior(Warrior warrior)
     {
         _warriors.Remove(warrior);
+        WarriorsCountChanged?.Invoke(_warriors.Count);
 
         if (CurrentWarriorsCount <= 0)
         {
-            _gameState = GameState.Setup;
+            CurrentGameState = GameState.Setup;
         }
     }
 
@@ -98,5 +93,10 @@ public partial class GameManager : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene("AR_DeathMatch");
+    }
+
+    public void EnableSetupMode()
+    {
+        CurrentGameState = GameState.Setup;
     }
 }

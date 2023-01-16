@@ -36,21 +36,12 @@ public class Warrior : MonoBehaviour
     public void Initialize(GameManager gameManager)
     {
         _gameManager = gameManager;
-        _gameManager.GameStateChanged += OnGameStateChange;
-    }
-
-    private void OnGameStateChange(GameManager.GameState gameState)
-    {
-
-    }
-
-    private void Awake()
-    {
-        Instantiate(_appearingPrefab, transform.position, transform.rotation);
     }
 
     private void Start()
     {
+        Instantiate(_appearingPrefab, transform.position, transform.rotation);
+
         UnitStats = GetComponentInChildren<UnitStats>();
         _warriorAnimator = GetComponent<Animator>();
         _isSpawned = true;

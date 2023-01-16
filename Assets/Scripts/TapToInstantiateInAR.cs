@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARSubsystems;
 using UnityEngine.XR.ARFoundation;
-using UnityEngine.EventSystems;
-
 
 public class TapToInstantiateInAR : MonoBehaviour
 

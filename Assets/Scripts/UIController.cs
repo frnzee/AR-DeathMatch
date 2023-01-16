@@ -59,16 +59,21 @@ public class UIController : MonoBehaviour
         _setupModeButton.SetActive(false);
     }
 
-    public void UpdateWarriorsCount(int count)
+    private void UpdateWarriorsCount(int count)
     {
-        _warriorsCountText.text = count + "/" + _gameManager.WarriorsCountLimit;
+        _warriorsCountText.text = count + "/" + _gameManager.WarriorsLimit;
     }
 
-    public IEnumerator ShowMessage(string text, float time)
+    private IEnumerator ShowMessage(string text, float time)
     {
         _messageText.text = text;
         yield return new WaitForSeconds(time);
         _messageText.text = null;
         _setupModeText.GetComponent<TextMeshProUGUI>().color = Color.black;
+    }
+
+    private void OnDestroy()
+    {
+        _gameManager.GameStateChanged -= OnGameStateChange;
     }
 }
