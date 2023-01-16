@@ -123,6 +123,51 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &44769212
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 44769214}
+  - component: {fileID: 44769213}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &44769213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 44769212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e147e36fe4912409ba2ce116208d98ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _warriorPrefab: {fileID: 29376854925794621, guid: a3492b35cd78047f0a471a144b78bdf5, type: 3}
+  _uIController: {fileID: 149504272}
+--- !u!4 &44769214
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 44769212}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &149504266
 GameObject:
   m_ObjectHideFlags: 0
@@ -135,9 +180,9 @@ GameObject:
   - component: {fileID: 149504269}
   - component: {fileID: 149504268}
   - component: {fileID: 149504267}
-  - component: {fileID: 149504271}
+  - component: {fileID: 149504272}
   m_Layer: 5
-  m_Name: GameManager
+  m_Name: UICanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -217,7 +262,8 @@ RectTransform:
   m_Children:
   - {fileID: 927287765}
   - {fileID: 1624589779}
-  - {fileID: 413103905}
+  - {fileID: 2010859079}
+  - {fileID: 2143862862}
   - {fileID: 444940808}
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -227,7 +273,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &149504271
+--- !u!114 &149504272
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -236,14 +282,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 149504266}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e147e36fe4912409ba2ce116208d98ba, type: 3}
+  m_Script: {fileID: 11500000, guid: b012a175e5cf549e3bf508b0d2e8998b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _warriorPrefab: {fileID: 29376854925794621, guid: a3492b35cd78047f0a471a144b78bdf5, type: 3}
-  _unitAppearingPrefab: {fileID: 16321464839466467, guid: b22631e46e05c4fcfab985a0dc650876, type: 3}
-  _gameUI: {fileID: 413103904}
+  _restartButton: {fileID: 1624589778}
   _setupModeText: {fileID: 761603393}
-  _warriorsAmountText: {fileID: 927287766}
+  _setupModeButton: {fileID: 2143862861}
+  _warriorsAmount: {fileID: 927287764}
+  _setupUnitButton: {fileID: 2010859078}
+  _warriorsCountText: {fileID: 927287766}
   _messageText: {fileID: 444940806}
 --- !u!1 &237810878
 GameObject:
@@ -438,43 +485,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 282950748}
   m_CullTransparentMesh: 1
---- !u!1 &413103904
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 413103905}
-  m_Layer: 5
-  m_Name: GUI
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &413103905
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 413103904}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 2010859079}
-  - {fileID: 2143862862}
-  m_Father: {fileID: 149504270}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &444940805
 GameObject:
   m_ObjectHideFlags: 0
@@ -602,7 +612,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 149504270}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -865,7 +875,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2006f6cd56a4460d82034f6c888953c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameManager: {fileID: 149504271}
+  _gameManager: {fileID: 44769213}
   _placementIndicator: {fileID: 1969208533}
   _spawnPosition: {fileID: 1146881066}
   _arRaycastManager: {fileID: 1391322227}
@@ -895,7 +905,7 @@ GameObject:
   - component: {fileID: 927287767}
   - component: {fileID: 927287766}
   m_Layer: 5
-  m_Name: WarriorsAmountText
+  m_Name: WarriorsCountText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1127,7 +1137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3755aeedc2f042d39ec19ddec51c041, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tapToInstantiateInAR: {fileID: 0}
+  _tapToInstantiateInAR: {fileID: 861713050}
 --- !u!65 &1146881072
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1153,7 +1163,7 @@ GameObject:
   - component: {fileID: 1284404486}
   - component: {fileID: 1284404485}
   m_Layer: 5
-  m_Name: SetCharacterText
+  m_Name: SetupUnitText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1432,7 +1442,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 149504271}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: Restart
         m_Mode: 1
@@ -1592,7 +1602,7 @@ GameObject:
   - component: {fileID: 2010859081}
   - component: {fileID: 2010859080}
   m_Layer: 5
-  m_Name: SetUpCharacter
+  m_Name: SetupUnit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1610,8 +1620,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1284404484}
-  m_Father: {fileID: 413103905}
-  m_RootOrder: 0
+  m_Father: {fileID: 149504270}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -1662,7 +1672,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 149504271}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -1934,8 +1944,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 761603394}
-  m_Father: {fileID: 413103905}
-  m_RootOrder: 1
+  m_Father: {fileID: 149504270}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -1986,7 +1996,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 149504271}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: EnableSetupState
         m_Mode: 1

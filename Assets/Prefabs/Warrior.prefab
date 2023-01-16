@@ -942,10 +942,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentEnemy: {fileID: 0}
-  _healthBar: {fileID: 29376854758454062}
+  _appearingPrefab: {fileID: 16321464839466467, guid: b22631e46e05c4fcfab985a0dc650876, type: 3}
   _explosionPrefab: {fileID: 2661702088324539146, guid: 455e552c35bf946a19a6b0090922613e, type: 3}
   _healUpText: {fileID: 8155641855137765893}
-  _shotPrefab: {fileID: 939761434949370586, guid: 5489be6657c354ea49c33c2e2ac09807, type: 3}
+  _bulletPrefab: {fileID: 939761434949370586, guid: 5489be6657c354ea49c33c2e2ac09807, type: 3}
   _rotationSpeed: 1.5
 --- !u!1 &7644277523114698784
 GameObject:

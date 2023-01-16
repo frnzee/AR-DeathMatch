@@ -2,10 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARSubsystems;
 using UnityEngine.XR.ARFoundation;
-using UnityEngine.EventSystems;
 
-
-public class TapToInstantiateInAR : MonoBehaviour, IPointerDownHandler
+public class TapToInstantiateInAR : MonoBehaviour
 
 {
     private const float PositionValue = 0.5f;
@@ -18,11 +16,6 @@ public class TapToInstantiateInAR : MonoBehaviour, IPointerDownHandler
 
     private Pose _placementPosition;
     private bool _placementPositionIsValid = false;
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        SpawnWarriorOnPlacementIndicatorPosition();
-    }
 
     private void Update()
     {
@@ -37,11 +30,16 @@ public class TapToInstantiateInAR : MonoBehaviour, IPointerDownHandler
         {
             _spawnPosition.SetActive(false);
         }
+
+        if (Input.touchCount > 0)
+        {
+            TapOnWarrior();
+        }
     }
 
     private void UpdatePlacementPosition()
     {
-        var screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(PositionValue, PositionValue));
+        Vector3 screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(PositionValue, PositionValue));
         var hits = new List<ARRaycastHit>();
         _arRaycastManager.Raycast(screenCenter, hits, TrackableType.Planes);
 
@@ -77,7 +75,20 @@ public class TapToInstantiateInAR : MonoBehaviour, IPointerDownHandler
         }
         else if (!_placementPositionIsValid)
         {
-            StartCoroutine(_gameManager.ShowMessage("Can't place unit here", 3f));
+//            StartCoroutine(_gameManager.ShowMessage("Can't place unit here", 3f));
+        }
+    }
+
+    public void TapOnWarrior()
+    {
+        Touch touch = Input.GetTouch(0);
+        Vector3 touchposition = touch.position;
+        foreach (var warrior in _gameManager.Warriors)
+        {
+            if (warrior.transform.position == touchposition)
+            {
+                warrior.UnitStats.HealUp();
+            }
         }
     }
 }
