@@ -13,36 +13,41 @@ public class Warrior : MonoBehaviour
     [SerializeField] private GameObject _explosionPrefab;
     [SerializeField] private GameObject _healUpText;
     [SerializeField] private Bullet _bulletPrefab;
+    [SerializeField] private HealthBar _healthBar;
     [SerializeField] private float _rotationSpeed;
 
     private GameManager _gameManager;
+    private Animator _warriorAnimator;
 
     private float _targetRotation;
     private float _startRotation;
     private float _shootingTimer;
     private float _deathExplosionTimer = 4f;
+    private float _timerForIdleEventAnim = TimeForIdleEventAnim;
 
     private bool _isShooting = false;
     private bool _isSpawned = false;
 
-    public bool IsDead { get; private set; }
-
-    private float _timerForIdleEventAnim = TimeForIdleEventAnim;
-
-    private Animator _warriorAnimator;
-
     public UnitStats UnitStats { get; private set; }
+    public bool IsDead { get; private set; }
 
     public void Initialize(GameManager gameManager)
     {
         _gameManager = gameManager;
+        InitializeSubSystems();
+    }
+
+    private void InitializeSubSystems()
+    {
+        UnitStats = new UnitStats();
+        UnitStats.Initialize();
+        _healthBar.Initialize(UnitStats);
     }
 
     private void Start()
     {
         Instantiate(_appearingPrefab, transform.position, transform.rotation);
 
-        UnitStats = GetComponentInChildren<UnitStats>();
         _warriorAnimator = GetComponent<Animator>();
         _isSpawned = true;
         IsDead = false;
@@ -52,7 +57,7 @@ public class Warrior : MonoBehaviour
     {
         if (FindClosestEnemy())
         {
-            if (_isSpawned && _gameManager.CurrentGameState == GameManager.GameState.Game)
+            if (_isSpawned && _gameManager.CurrentGameState != GameManager.GameState.None)
             {
                 RotateToNearestEnemy();
                 Shooting();

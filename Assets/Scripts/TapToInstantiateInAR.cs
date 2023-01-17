@@ -13,13 +13,12 @@ public class TapToInstantiateInAR : MonoBehaviour
     [SerializeField] private GameObject _spawnPosition;
     [SerializeField] private ARRaycastManager _arRaycastManager;
 
-
     private Pose _placementPosition;
     private bool _placementPositionIsValid = false;
 
     private void Update()
     {
-        if (_gameManager.CurrentGameState == GameManager.GameState.Setup)
+        if (_gameManager.CurrentGameState != GameManager.GameState.None)
         {
             _spawnPosition.SetActive(true);
 
@@ -29,11 +28,6 @@ public class TapToInstantiateInAR : MonoBehaviour
         else
         {
             _spawnPosition.SetActive(false);
-        }
-
-        if (Input.touchCount > 0)
-        {
-            TapOnWarrior();
         }
     }
 
@@ -69,26 +63,12 @@ public class TapToInstantiateInAR : MonoBehaviour
 
     public void SpawnWarriorOnPlacementIndicatorPosition()
     {
-        if (_placementPositionIsValid && _gameManager.CurrentGameState == GameManager.GameState.Setup)
+        if (_placementPositionIsValid && _gameManager.CurrentGameState != GameManager.GameState.None)
         {
             _gameManager.InstantiateWarrior(_placementPosition.position, _placementPosition.rotation);
         }
         else if (!_placementPositionIsValid)
         {
-//            StartCoroutine(_gameManager.ShowMessage("Can't place unit here", 3f));
-        }
-    }
-
-    public void TapOnWarrior()
-    {
-        Touch touch = Input.GetTouch(0);
-        Vector3 touchposition = touch.position;
-        foreach (var warrior in _gameManager.Warriors)
-        {
-            if (warrior.transform.position == touchposition)
-            {
-                warrior.UnitStats.HealUp();
-            }
         }
     }
 }
