@@ -40,7 +40,6 @@ public class Warrior : MonoBehaviour
     private void InitializeSubSystems()
     {
         UnitStats = new UnitStats();
-        UnitStats.Initialize();
         _healthBar.Initialize(UnitStats);
     }
 

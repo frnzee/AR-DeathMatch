@@ -45,7 +45,12 @@ public class UnitStats
     }
     public float MaxShootingSpeed => MaxShootingSpeedValue;
 
-    public void Initialize()
+    public UnitStats()
+    {
+        Initialize();
+    }
+
+    private void Initialize()
     {
         _health = (Random.Range(-1, 1f) * RandomHealthChanger) + DefaultHealth;
         _damage = (Random.Range(-1, 1f) * RandomDamageChanger) + DefaultDamage;
@@ -70,6 +75,6 @@ public class UnitStats
 
     public void HealUp()
     {
-        Health += HealthUpAmount;   
+        Health += HealthUpAmount;
     }
 }
