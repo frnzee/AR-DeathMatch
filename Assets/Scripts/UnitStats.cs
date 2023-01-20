@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class UnitStats : MonoBehaviour
+public class UnitStats
 {
     private const int DefaultHealth = 75;
     private const int MinHealthValue = 0;
@@ -45,7 +45,12 @@ public class UnitStats : MonoBehaviour
     }
     public float MaxShootingSpeed => MaxShootingSpeedValue;
 
-    private void Start()
+    public UnitStats()
+    {
+        Initialize();
+    }
+
+    private void Initialize()
     {
         _health = (Random.Range(-1, 1f) * RandomHealthChanger) + DefaultHealth;
         _damage = (Random.Range(-1, 1f) * RandomDamageChanger) + DefaultDamage;
@@ -56,13 +61,11 @@ public class UnitStats : MonoBehaviour
     public void IncreaseDamage()
     {
         Damage += DamageIncrement;
-        Debug.Log("Damage: " + Damage);
     }
 
     public void IncreaseShootingSpeed()
     {
         ShootingSpeed -= ShootingSpeedIncrement;
-        Debug.Log("Shooting speed: " + ShootingSpeed);
     }
 
     public void TakeDamage(int DamageAmount)
@@ -72,6 +75,6 @@ public class UnitStats : MonoBehaviour
 
     public void HealUp()
     {
-        Health += HealthUpAmount;   
+        Health += HealthUpAmount;
     }
 }

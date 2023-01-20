@@ -11,10 +11,12 @@ public class UIController : MonoBehaviour
     [SerializeField] private GameObject _setupModeButton;
     [SerializeField] private GameObject _warriorsAmount;
     [SerializeField] private GameObject _setupUnitButton;
+    [SerializeField] private GameObject _message;
     [SerializeField] private TextMeshProUGUI _warriorsCountText;
     [SerializeField] private TextMeshProUGUI _messageText;
 
     private GameManager _gameManager;
+
     public void Initialize(GameManager gameManager)
     {
         _gameManager = gameManager;
@@ -51,12 +53,14 @@ public class UIController : MonoBehaviour
         _restartButton.SetActive(true);
         _setupUnitButton.SetActive(true);
         _warriorsAmount.SetActive(true);
+        _message.SetActive(true);
     }
 
     private void DisableGUI()
     {
         _setupUnitButton.SetActive(false);
         _setupModeButton.SetActive(false);
+        _message.SetActive(false);
     }
 
     private void UpdateWarriorsCount(int count)

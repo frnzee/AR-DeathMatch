@@ -69,14 +69,14 @@ public partial class GameManager : MonoBehaviour
             _warriors.Add(warrior);
 
             warrior.Initialize(this);
-            WarriorsCountChanged?.Invoke(_warriors.Count);
+            WarriorsCountChanged?.Invoke(CurrentWarriorsCount);
         }
     }
 
     public void RemoveWarrior(Warrior warrior)
     {
         _warriors.Remove(warrior);
-        WarriorsCountChanged?.Invoke(_warriors.Count);
+        WarriorsCountChanged?.Invoke(CurrentWarriorsCount);
 
         if (CurrentWarriorsCount <= 0)
         {

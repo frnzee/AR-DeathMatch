@@ -102,7 +102,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 50
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a8a0f71578b184a2bb407c6a3a6b0de4, type: 2}
   m_sharedMaterial: {fileID: -2230013465546784929, guid: a8a0f71578b184a2bb407c6a3a6b0de4, type: 2}
@@ -184,7 +184,6 @@ GameObject:
   - component: {fileID: 29376856471525717}
   - component: {fileID: 29376856471525716}
   - component: {fileID: 29376856471525704}
-  - component: {fileID: 29376856471525705}
   m_Layer: 5
   m_Name: UnitStats Canvas
   m_TagString: Untagged
@@ -288,19 +287,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthText: {fileID: 29376855030800331}
   _healthFiller: {fileID: 29376856763357197}
-  _unitStats: {fileID: 29376856471525705}
---- !u!114 &29376856471525705
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 29376856471525715}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9ec91335a5ed45afa93d5f0ed2c53f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &29376856763357195
 GameObject:
   m_ObjectHideFlags: 0
@@ -883,7 +869,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &7644277521073032123
 Animator:
-  serializedVersion: 3
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -896,10 +882,11 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!65 &5953187754307508447
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -947,6 +934,7 @@ MonoBehaviour:
   _healUpText: {fileID: 8155641855137765893}
   _bulletPrefab: {fileID: 939761434949370586, guid: 5489be6657c354ea49c33c2e2ac09807, type: 3}
   _rotationSpeed: 1.5
+  _healthBar: {fileID: 29376856471525704}
 --- !u!1 &7644277523114698784
 GameObject:
   m_ObjectHideFlags: 0

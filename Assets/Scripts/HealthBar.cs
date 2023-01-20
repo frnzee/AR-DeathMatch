@@ -12,6 +12,11 @@ public class HealthBar : MonoBehaviour
     
     private float _lerpSpeed;
 
+    public void Initialize(UnitStats unitStats)
+    {
+        _unitStats = unitStats;
+    }
+
     private void Update()
     {
         _lerpSpeed = DefaultLerpSpeed * Time.deltaTime;
@@ -29,6 +34,7 @@ public class HealthBar : MonoBehaviour
             transform.forward = Camera.main.transform.forward;
         }
     }
+
     private void HealthBarFill()
     {
         _healthFiller.fillAmount = Mathf.Lerp(_healthFiller.fillAmount, _unitStats.Health / _unitStats.MaxHealth, _lerpSpeed);
