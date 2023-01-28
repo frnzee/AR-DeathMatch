@@ -32,10 +32,8 @@ public class Bullet : MonoBehaviour
 
             if (currentEnemy.IsDead && !_shooter.IsDead)
             {
-                _shooter.UnitStats.HealUp();
                 _shooter.UnitStats.IncreaseDamage();
                 _shooter.UnitStats.IncreaseShootingSpeed();
-                _shooter.JumpOnHealUp();
             }
 
             Instantiate(_shotExplosionPrefab, transform.position, transform.rotation);
