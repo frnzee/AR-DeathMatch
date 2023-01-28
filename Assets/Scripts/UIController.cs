@@ -60,12 +60,15 @@ public class UIController : MonoBehaviour
     {
         _setupUnitButton.SetActive(false);
         _setupModeButton.SetActive(false);
-        _message.SetActive(false);
     }
 
     private void UpdateWarriorsCount(int count)
     {
         _warriorsCountText.text = count + "/" + _gameManager.WarriorsLimit;
+    }
+    public void ShowMessage(string text)
+    {
+        StartCoroutine(ShowMessage(text, 3f));
     }
 
     private IEnumerator ShowMessage(string text, float time)

@@ -4,7 +4,7 @@ using TMPro;
 
 public class HealthBar : MonoBehaviour
 {
-    private const float DefaultLerpSpeed = 3f;
+    private const float DefaultLerpSpeed = 2f;
 
     [SerializeField] private TextMeshProUGUI _healthText;
     [SerializeField] private Image _healthFiller;
