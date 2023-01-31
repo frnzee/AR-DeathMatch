@@ -287,6 +287,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthText: {fileID: 29376855030800331}
   _healthFiller: {fileID: 29376856763357197}
+  _healthBar: {fileID: 29376854758454062}
 --- !u!1 &29376856763357195
 GameObject:
   m_ObjectHideFlags: 0

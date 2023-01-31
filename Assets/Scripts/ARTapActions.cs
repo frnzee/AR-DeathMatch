@@ -15,7 +15,7 @@ public class ARTapActions : MonoBehaviour
 
     private Vector2 _touchPosition;
     private Pose _placementPosition;
-    private bool _placementPositionIsValid = false;
+    private bool _placementPositionIsValid;
     private bool _touchIsPressed;
     private bool _touchIsReleased;
 

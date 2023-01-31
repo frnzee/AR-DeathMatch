@@ -18,11 +18,12 @@ public class Warrior : MonoBehaviour
 
     private GameManager _gameManager;
     private Animator _warriorAnimator;
+    private Quaternion _bulletQuaternion;
 
     private float _targetRotation;
     private float _startRotation;
     private float _shootingTimer;
-    private float _deathExplosionTimer = 4f;
+    private float _deathExplosionTimer = 5f;
     private float _timerForIdleEventAnim = TimeForIdleEventAnim;
 
     private bool _isShooting = false;
@@ -102,6 +103,8 @@ public class Warrior : MonoBehaviour
     private void RotateToNearestEnemy()
     {
         Vector3 direction = _currentEnemy.transform.position - transform.position;
+        _bulletQuaternion = Quaternion.LookRotation(direction);
+        direction.y = 0;
         Quaternion rotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Lerp(transform.rotation, rotation, _rotationSpeed * Time.deltaTime);
 
@@ -131,10 +134,10 @@ public class Warrior : MonoBehaviour
     {
         _shootingTimer -= Time.deltaTime;
 
-        if (!IsDead && _isShooting && _shootingTimer <= 0)
+        if (!_currentEnemy.IsDead && !IsDead && _isShooting && _shootingTimer <= 0)
         {
             _warriorAnimator.SetTrigger("Shoot");
-            Bullet bullet = Instantiate(_bulletPrefab, transform.position, transform.rotation);
+            Bullet bullet = Instantiate(_bulletPrefab, transform.position, _bulletQuaternion);
             bullet.Initialize(this);
             _shootingTimer = UnitStats.ShootingSpeed;
         }

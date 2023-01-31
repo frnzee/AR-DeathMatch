@@ -42,7 +42,7 @@ public class UIController : MonoBehaviour
             case GameManager.GameState.Setup:
                 EnableGUI();
                 _setupModeText.GetComponent<TextMeshProUGUI>().color = Color.cyan;
-                StartCoroutine(ShowMessage("Setup mode", DefaultMessageLifetime));
+                StartCoroutine(ShowMessage("Tap and choose where to place a unit", DefaultMessageLifetime));
                 break;
         }
     }
@@ -66,9 +66,10 @@ public class UIController : MonoBehaviour
     {
         _warriorsCountText.text = count + "/" + _gameManager.WarriorsLimit;
     }
+
     public void ShowMessage(string text)
     {
-        StartCoroutine(ShowMessage(text, 3f));
+        StartCoroutine(ShowMessage(text, DefaultMessageLifetime));
     }
 
     private IEnumerator ShowMessage(string text, float time)
