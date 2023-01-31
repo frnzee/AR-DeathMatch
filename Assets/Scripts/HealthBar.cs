@@ -9,12 +9,15 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _healthText;
     [SerializeField] private Image _healthFiller;
     [SerializeField] private UnitStats _unitStats;
-    
+    [SerializeField] private GameObject _healthBar;
+
     private float _lerpSpeed;
+    private Camera _mainCamera;
 
     public void Initialize(UnitStats unitStats)
     {
         _unitStats = unitStats;
+        _mainCamera = Camera.main;
     }
 
     private void Update()
@@ -24,14 +27,30 @@ public class HealthBar : MonoBehaviour
         HealthBarFill();
         ChangeColor();
 
-        _healthText.text = Mathf.RoundToInt(_unitStats.Health).ToString();
+        if (_unitStats.Health <= 0)
+        {
+            _healthText.text = "DEAD";
+        }
+        else
+        {
+            _healthText.text = Mathf.RoundToInt(_unitStats.Health).ToString();
+        }
+
+        if (_unitStats.Health >= _unitStats.MaxHealth)
+        {
+            _healthBar.SetActive(false);
+        }
+        else
+        {
+            _healthBar.SetActive(true);
+        }
     }
 
     private void LateUpdate()
     {
-        if (Camera.main != null)
+        if (_mainCamera != null)
         {
-            transform.forward = Camera.main.transform.forward;
+            transform.forward = _mainCamera.transform.forward;
         }
     }
 

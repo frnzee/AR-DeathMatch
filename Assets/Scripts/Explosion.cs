@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Explosion : MonoBehaviour
 {
-    private const float TimeToDestroy = 2f;
+    private const float TimeToDestroy = 1f;
 
     private void Start()
     {
