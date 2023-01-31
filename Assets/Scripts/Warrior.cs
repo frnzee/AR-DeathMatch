@@ -134,7 +134,7 @@ public class Warrior : MonoBehaviour
     {
         _shootingTimer -= Time.deltaTime;
 
-        if (_currentEnemy.UnitStats.Health >= 0)
+        if (!_currentEnemy.IsDead)
         {
             if (!IsDead && _isShooting && _shootingTimer <= 0)
             {

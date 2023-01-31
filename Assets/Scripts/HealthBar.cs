@@ -36,14 +36,7 @@ public class HealthBar : MonoBehaviour
             _healthText.text = Mathf.RoundToInt(_unitStats.Health).ToString();
         }
 
-        if (_unitStats.Health >= _unitStats.MaxHealth)
-        {
-            _healthBar.SetActive(false);
-        }
-        else
-        {
-            _healthBar.SetActive(true);
-        }
+        _healthBar.SetActive(_unitStats.Health < _unitStats.MaxHealth);
     }
 
     private void LateUpdate()
