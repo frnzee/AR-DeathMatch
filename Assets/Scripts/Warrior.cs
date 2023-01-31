@@ -134,15 +134,12 @@ public class Warrior : MonoBehaviour
     {
         _shootingTimer -= Time.deltaTime;
 
-        if (!_currentEnemy.IsDead)
+        if (!_currentEnemy.IsDead && !IsDead && _isShooting && _shootingTimer <= 0)
         {
-            if (!IsDead && _isShooting && _shootingTimer <= 0)
-            {
-                _warriorAnimator.SetTrigger("Shoot");
-                Bullet bullet = Instantiate(_bulletPrefab, transform.position, _bulletQuaternion);
-                bullet.Initialize(this);
-                _shootingTimer = UnitStats.ShootingSpeed;
-            }
+            _warriorAnimator.SetTrigger("Shoot");
+            Bullet bullet = Instantiate(_bulletPrefab, transform.position, _bulletQuaternion);
+            bullet.Initialize(this);
+            _shootingTimer = UnitStats.ShootingSpeed;
         }
     }
 
