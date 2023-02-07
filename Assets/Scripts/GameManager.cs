@@ -92,7 +92,7 @@ public partial class GameManager : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene("AR_DeathMatch");
+        SceneManager.LoadScene("AugmentedRealityDeathMatch");
     }
 
     public void EnableSetupMode()

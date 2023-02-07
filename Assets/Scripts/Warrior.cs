@@ -6,9 +6,7 @@ public class Warrior : MonoBehaviour
     private const float MinRotationValue = -0.1f;
     private const float MaxRotationValue = 0.1f;
     private const float TimeForDeath = 5f;
-    private const float TimeForIdleEventAnim = 10f;
 
-    [SerializeField] private Warrior _currentEnemy;
     [SerializeField] private GameObject _appearingPrefab;
     [SerializeField] private GameObject _explosionPrefab;
     [SerializeField] private GameObject _healUpText;
@@ -17,6 +15,7 @@ public class Warrior : MonoBehaviour
     [SerializeField] private float _rotationSpeed;
 
     private GameManager _gameManager;
+    private Warrior _currentEnemy;
     private Animator _warriorAnimator;
     private Quaternion _bulletQuaternion;
 
@@ -24,7 +23,6 @@ public class Warrior : MonoBehaviour
     private float _startRotation;
     private float _shootingTimer;
     private float _deathExplosionTimer = 5f;
-    private float _timerForIdleEventAnim = TimeForIdleEventAnim;
 
     private bool _isShooting = false;
     private bool _isSpawned = false;
@@ -65,16 +63,9 @@ public class Warrior : MonoBehaviour
         }
         else
         {
-            _timerForIdleEventAnim -= Time.deltaTime;
-
-            if (_timerForIdleEventAnim <= 0)
-            {
-                _warriorAnimator.SetBool("TurnLeft", false);
-                _warriorAnimator.SetBool("TurnRight", false);
-                _warriorAnimator.SetTrigger("Idle");
-                _timerForIdleEventAnim = TimeForIdleEventAnim;
-            }
+            _warriorAnimator.SetFloat("TurnOrIdle", 0);
         }
+
         Die();
     }
 
@@ -108,23 +99,15 @@ public class Warrior : MonoBehaviour
         Quaternion rotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Lerp(transform.rotation, rotation, _rotationSpeed * Time.deltaTime);
 
-        _targetRotation = Mathf.Round(rotation.y);
+        if (_currentEnemy.IsDead)
+        {
+            _targetRotation = 0;
+        }
+        else _targetRotation = rotation.y;
 
-        if (!IsDead && _startRotation < _targetRotation)
-        {
-            _warriorAnimator.SetBool("TurnRight", true);
-            _startRotation = Mathf.Round(transform.rotation.y);
-        }
-        else if (!IsDead)
-        {
-            _warriorAnimator.SetBool("TurnLeft", true);
-            _startRotation = Mathf.Round(transform.rotation.y);
-        }
-        else
-        {
-            _warriorAnimator.SetBool("TurnRight", false);
-            _warriorAnimator.SetBool("TurnLeft", false);
-        }
+        _warriorAnimator.SetFloat("TurnOrIdle", _targetRotation);
+
+        _startRotation = _targetRotation;
 
         _isShooting = (Mathf.Abs(_startRotation) - Mathf.Abs(_targetRotation)) > MinRotationValue &&
                       (Mathf.Abs(_startRotation) - Mathf.Abs(_targetRotation)) < MaxRotationValue;
@@ -154,6 +137,7 @@ public class Warrior : MonoBehaviour
         if (UnitStats.Health <= 0)
         {
             IsDead = true;
+
             _warriorAnimator.SetTrigger("Die");
             _gameManager.RemoveWarrior(this);
 
