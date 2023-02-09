@@ -22,7 +22,7 @@ public class Warrior : MonoBehaviour
     private float _targetRotation;
     private float _startRotation;
     private float _shootingTimer;
-    private float _deathExplosionTimer = 5f;
+    private float _deathExplosionTimer = TimeForDeath;
 
     private bool _isShooting = false;
     private bool _isSpawned = false;
