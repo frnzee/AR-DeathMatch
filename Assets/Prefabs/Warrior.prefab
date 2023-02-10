@@ -353,7 +353,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e2895fec379724e9bb646310edf50962, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 71dc35ecfdc534162a425dbe7deb453a, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -929,7 +929,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0924caca9d49346488e0131cdb8fa0b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentEnemy: {fileID: 0}
   _appearingPrefab: {fileID: 16321464839466467, guid: b22631e46e05c4fcfab985a0dc650876, type: 3}
   _explosionPrefab: {fileID: 2661702088324539146, guid: 455e552c35bf946a19a6b0090922613e, type: 3}
   _healUpText: {fileID: 8155641855137765893}
