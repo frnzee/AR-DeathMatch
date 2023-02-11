@@ -35,18 +35,17 @@ public class ARTapActions : MonoBehaviour
     {
         if (_gameManager.CurrentGameState != GameManager.GameState.None)
         {
-            _spawnPosition.SetActive(true);
-
+            UpdatePlacementPosition();
+            UpdatePlacementIndicator();
             if (_touchIsPressed)
             {
-                UpdatePlacementPosition();
-                UpdatePlacementIndicator();
+                _spawnPosition.SetActive(true);
             }
 
             if (_touchIsReleased)
             {
-                UpdatePlacementPosition();
-                UpdatePlacementIndicator();
+                _spawnPosition.SetActive(false);
+
                 InstantiateOrHealUpWarrior();
                 _touchIsPressed = false;
                 _touchIsReleased = false;
