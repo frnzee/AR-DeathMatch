@@ -1,5 +1,5 @@
 # Augmented reality death match
-Augmented reality death match game. You can place up to five units on the field (if planes are recognised by AR foundation kit). Once there are more than one unit on the field they start to shoot at the nearest enemy.
+Augmented reality death match game. You can place up to five units on the field (if planes are recognised by AR foundation kit). Once there is more than one unit on the field they start to shoot at the nearest enemy.
 Tapping on any unit make them to heal up.
 
 Tech stack: AR Foundation (ARCore, ARKit), 3D models, Skinned mesh animation, FX, Simple AI, Unity UI, Input System, Resolving dependencies, Using asset store.
