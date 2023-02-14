@@ -22,6 +22,7 @@ public class ARTapActions : MonoBehaviour
     private void Awake()
     {
         _touchController.TouchPositionChangedPressedOrReleased += OnTouchPositionChangedPressedOrReleased;
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
     }
 
     private void OnTouchPositionChangedPressedOrReleased(Vector2 currentTouchPosition, bool isPressed, bool isReleased)
