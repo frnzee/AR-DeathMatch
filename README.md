@@ -4,8 +4,10 @@ Tapping on any unit make them to heal up.
 
 Tech stack: AR Foundation (ARCore, ARKit), 3D models, Skinned mesh animation, FX, Simple AI, Unity UI, Input System, Resolving dependencies, Using asset store.
 
-Platform: Android, iOS, PC (limited functionality for testing how it works in general, without camera).
+Platform: Android, iOS
 
 Link to gameplay example video - https://youtu.be/G3IfyeZmzXs
+
+Link to Android build apk - https://drive.google.com/file/d/1sbQjFzTMSAMm6wh3Qr0oRQztuo08FVUS/view?usp=share_link
 
 ![screenshot](/Assets/Images/Screenshot.png)
